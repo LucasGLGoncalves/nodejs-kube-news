@@ -64,6 +64,7 @@ Para configurar a aplicação, defina as seguintes variáveis de ambiente:
 | DB_HOST | Endereço do banco de dados | localhost |
 | DB_PORT | Porta do banco de dados | 5432 |
 | DB_SSL_REQUIRE | Habilitar SSL para conexão | false |
+| APP_PORT | Porta da aplicação | 8080 |
 
 ## 🚀 Instalação e Execução
 
