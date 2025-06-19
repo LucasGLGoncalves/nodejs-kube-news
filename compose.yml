@@ -1,0 +1,44 @@
+services:
+  postgre:
+    container_name: kube-news-db
+    image: postgres:${KUBE_DB_TAG:-13.21-alpine3.22}
+    networks:
+      - kube-news-network
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    volumes:
+      - kube-news-volume-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_DB=${DB_DATABASE}
+
+  app:
+    container_name: kube-news-app
+    image: rukasu/kube-news:${KUBE_APP_TAG:-latest}
+    depends_on:
+      - postgre
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    networks:
+      - kube-news-network
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    environment:
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_SSL_REQUIRE=${DB_SSL_REQUIRE}
+
+
+volumes:
+  kube-news-volume-data:
+    name: "kube-news-volume-data"
+
+networks:
+  kube-news-network:
+    name: "kube-news-network"
+    driver: bridge

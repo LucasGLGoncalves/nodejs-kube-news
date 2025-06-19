@@ -1,0 +1,10 @@
+README.md
+
+*.log
+
+# # Dependency directories
+node_modules/
+
+.env
+
+.gitignore
