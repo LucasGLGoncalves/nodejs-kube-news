@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-news-db
+spec:
+  selector:
+    matchLabels:
+      app: kube-news-db
+  template:
+    metadata:
+      labels:
+        app: kube-news-db
+    spec:
+      containers:
+      - name: kube-news-db
+        image: postgres:13.21-alpine3.22
+        ports:
+        - containerPort: 5432
+        envFrom:
+          - secretRef:
+              name: kube-news-secrets
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-news-db-service
+spec:
+  selector:
+    app: kube-news-db
+  ports:
+  - port: 5432
+    targetPort: 5432
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-news-app
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: kube-news-app
+  template:
+    metadata:
+      labels:
+        app: kube-news-app
+    spec:
+      containers:
+      - name: kube-news-app
+        image: rukasu/kube-news:latest
+        ports:
+        - containerPort: 8080
+        envFrom:
+          - secretRef:
+              name: kube-news-secrets
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-news-app-service
+spec:
+  selector:
+    app: kube-news-app
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30000
+  type: NodePort
+
