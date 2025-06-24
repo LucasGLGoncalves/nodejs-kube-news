@@ -1,127 +1,163 @@
-# Kube-News
+# 📘 Kube-News
 
-Uma aplicação de notícias desenvolvida em NodeJS para demonstrar o uso de containers e Kubernetes.
+*ᴘᴛ-ʙʀ* Uma aplicação de notícias desenvolvida em NodeJS para demonstrar o uso de containers e Kubernetes.  
+*ᴇɴ* A news application built with NodeJS to demonstrate containerization and Kubernetes deployment.
 
-## 📋 Sobre o Projeto
+---
 
-O projeto Kube-News é uma aplicação web simples desenvolvida em Node.js, projetada como exemplo para demonstrar o uso de contêineres. É um portal de notícias que permite criar, visualizar e gerenciar artigos através de uma interface web.
+## 📋 Sobre o Projeto | About the Project
 
-### 🚀 Funcionalidades Principais
+*ᴘᴛ-ʙʀ* O Kube-News é uma aplicação web simples desenvolvida em Node.js, projetada como exemplo para demonstrar o uso de contêineres.  
+*ᴇɴ* Kube-News is a simple Node.js web app designed to demonstrate the use of containers and orchestration with Kubernetes.
 
-- Listagem de notícias na página inicial
-- Criação de novas notícias através de formulário
-- Visualização detalhada de cada notícia
-- API REST para inserção em massa de notícias
-- Endpoints de health check para monitoramento
-- Coleta de métricas para Prometheus
+### 🚀 Funcionalidades Principais | Main Features
 
-## 🛠️ Tecnologias Utilizadas
+- *ᴘᴛ-ʙʀ* Listagem, visualização e criação de notícias  
+- *ᴇɴ* List, view and create news articles  
+- *ᴘᴛ-ʙʀ* API REST para inserção em massa de notícias  
+- *ᴇɴ* REST API for bulk insertion of news  
+- *ᴘᴛ-ʙʀ* Endpoints de health check para monitoramento  
+- *ᴇɴ* Health check endpoints for monitoring  
+- *ᴘᴛ-ʙʀ* Coleta de métricas Prometheus  
+- *ᴇɴ* Prometheus metrics collection  
+- *ᴘᴛ-ʙʀ* Simulação de falhas para testes de resiliência  
+- *ᴇɴ* Failure simulation for resilience testing
 
-- **Backend**: Node.js com Express.js
-- **Frontend**: EJS (Embedded JavaScript) como motor de templates
-- **Banco de Dados**: PostgreSQL com Sequelize ORM
-- **Monitoramento**: Prometheus (via express-prom-bundle)
+---
 
-## 📦 Estrutura do Projeto
+## 🛠️ Tecnologias Utilizadas | Technologies Used
+
+- **Backend**: Node.js + Express  
+- **Frontend**: EJS Templates  
+- **Banco de Dados | Database**: PostgreSQL + Sequelize  
+- **Monitoramento | Monitoring**: Prometheus via `express-prom-bundle`
+
+---
+
+## 📦 Estrutura do Projeto | Project Structure
 
 ```
+
 /
-├── src/                      # Código-fonte principal
-│   ├── models/               # Modelos de dados
-│   │   └── post.js           # Definição do modelo Post
-│   ├── views/                # Templates EJS
-│   │   ├── partial/          # Componentes parciais (header, footer)
-│   │   ├── edit-news.ejs     # Formulário de edição
-│   │   ├── index.ejs         # Página principal
-│   │   └── view-news.ejs     # Visualização de notícia
-│   ├── static/               # Arquivos estáticos (CSS, imagens)
-│   ├── middleware.js         # Middlewares personalizados
-│   ├── server.js             # Ponto de entrada da aplicação
-│   ├── system-life.js        # Endpoints de health check
-│   └── package.json          # Dependências
-├── popula-dados.http         # Arquivo para popular o banco com dados de exemplo
-└── README.md                 # Documentação
-```
+├── src/
+│   ├── models/               # *ᴘᴛ-ʙʀ* Modelos de dados | *ᴇɴ* Data models
+│   ├── views/                # *ᴘᴛ-ʙʀ* Templates EJS
+│   ├── static/               # *ᴘᴛ-ʙʀ* Arquivos estáticos | *ᴇɴ* Static files
+│   ├── middleware.js
+│   ├── server.js             # *ᴘᴛ-ʙʀ* Entrada da aplicação | *ᴇɴ* App entry point
+│   ├── system-life.js        # *ᴘᴛ-ʙʀ* Endpoints de health check
+│   └── package.json
+├── k8s/                      # *ᴘᴛ-ʙʀ* Arquivos Kubernetes | *ᴇɴ* Kubernetes manifests
+├── popula-dados.http         # *ᴘᴛ-ʙʀ* API para dados de teste | *ᴇɴ* Sample data API calls
+└── README.md
 
-## 🔧 Configuração
+````
 
-### Pré-requisitos
+---
 
-- Node.js
-- PostgreSQL
-- Docker (opcional, para containerização)
-- Kubernetes (opcional, para orquestração)
+## 🔧 Configuração | Configuration
 
-### Variáveis de Ambiente
+### Variáveis de Ambiente | Environment Variables
 
-Para configurar a aplicação, defina as seguintes variáveis de ambiente:
+| Variável         | Descrição *ᴘᴛ-ʙʀ* / Description *ᴇɴ*         | Padrão / Default |
+|------------------|----------------------------------------|------------------|
+| DB_DATABASE      | Nome do banco / Database name          | kubedevnews      |
+| DB_USERNAME      | Usuário do banco / DB user             | kubedevnews      |
+| DB_PASSWORD      | Senha / Password                       | Pg#123           |
+| DB_HOST          | Host do banco / DB host                | localhost        |
+| DB_PORT          | Porta / Port                           | 5432             |
+| DB_SSL_REQUIRE   | SSL habilitado? / SSL enabled?         | false            |
+| APP_PORT         | Porta da aplicação / App port          | 8080             |
 
-| Variável | Descrição | Valor Padrão |
-|----------|-----------|--------------|
-| DB_DATABASE | Nome do banco de dados | kubedevnews |
-| DB_USERNAME | Usuário do banco de dados | kubedevnews |
-| DB_PASSWORD | Senha do usuário | Pg#123 |
-| DB_HOST | Endereço do banco de dados | localhost |
-| DB_PORT | Porta do banco de dados | 5432 |
-| DB_SSL_REQUIRE | Habilitar SSL para conexão | false |
-| APP_PORT | Porta da aplicação | 8080 |
+---
 
-## 🚀 Instalação e Execução
+## 🚀 Execução Local | Local Execution
 
-### Execução Local
-
-1. Clone o repositório
-2. Instale as dependências:
+1. *ᴘᴛ-ʙʀ* Clone o repositório / *ᴇɴ* Clone the repository  
+2. Instale dependências:  
    ```bash
    cd src
    npm install
-   ```
-3. Configure as variáveis de ambiente necessárias
-4. Inicie a aplicação:
+
+3. Configure as variáveis de ambiente / Set environment variables
+4. Inicie a aplicação / Start the app:
+
    ```bash
    npm start
    ```
-5. Acesse a aplicação em [http://localhost:8080](http://localhost:8080)
+5. Acesse / Access: [http://localhost:8080](http://localhost:8080)
 
-### População de Dados de Exemplo
+---
 
-Utilize o arquivo `popula-dados.http` para inserir notícias de exemplo:
+## 📊 Monitoramento e Health Checks | Monitoring and Health Checks
+
+| Endpoint           | *ᴘᴛ-ʙʀ* Descrição               | *ᴇɴ* Description             |
+| ------------------ | ---------------------------- | ---------------------------- |
+| `/health`          | Estado geral                 | Overall health               |
+| `/ready`           | Pronto?                      | Ready check                  |
+| `/metrics`         | Métricas                     | Prometheus metrics           |
+| `/unhealth`        | Simula falha                 | Simulate failure             |
+| `/unreadyfor/:seg` | Indisponível temporariamente | Temporary unready simulation |
+
+---
+
+## 🔒 Modelo de Dados | Data Model
+
+| Campo       | Tipo   | *ᴘᴛ-ʙʀ* Descrição     | *ᴇɴ* Description |
+| ----------- | ------ | ------------------ | ---------------- |
+| title       | String | Título da notícia  | News title       |
+| summary     | String | Resumo da notícia  | News summary     |
+| content     | String | Conteúdo completo  | Full content     |
+| publishDate | Date   | Data de publicação | Publish date     |
+
+---
+
+---
+
+## ☸️ Execução com Kubernetes | Running on Kubernetes
+
+Este projeto pode ser executado em clusters locais como **Kind** ou **K3d**.
+This project can run in local clusters using **Kind** or **K3d**.
+
+### 📁 Arquivos úteis | Useful files
+
+* `k8s/kind.manifest.yml`: *ᴘᴛ-ʙʀ* Configuração do cluster Kind / *ᴇɴ* Kind cluster config
+* `k8s/deployment.yml`: *ᴘᴛ-ʙʀ* Manifesto da aplicação e banco / *ᴇɴ* App and DB deployment manifest
+
+### 🧪 Como aplicar | How to apply
 
 ```bash
-# Com uma ferramenta como o REST Client no VS Code ou curl
-POST http://localhost:8080/api/post
-Content-Type: application/json
-# Conteúdo do arquivo popula-dados.http
+kubectl apply -f k8s/
 ```
 
-## 📊 Monitoramento e Health Checks
+---
 
-A aplicação disponibiliza endpoints para monitoramento e também recursos para simular cenários de falha, muito úteis para testar a resiliência em ambientes Kubernetes:
+## 🔐 Secret obrigatório | Required Secret
 
-### Endpoints de Monitoramento
-- `/health` - Verifica o estado atual da aplicação (retorna status da aplicação e hostname da máquina)
-- `/ready` - Verifica se a aplicação está pronta para receber tráfego
-- `/metrics` - Métricas do Prometheus (geradas pelo express-prom-bundle)
+Antes de aplicar o deployment, crie um arquivo chamado `secret.yaml`:
+Before deploying, create a file named `secret.yaml`:
 
-### Simulação de Falhas (Chaos Engineering)
-- `/unhealth` - (PUT) Altera o estado da aplicação para não saudável. Todas as requisições subsequentes receberão status code 500.
-- `/unreadyfor/:seconds` - (PUT) Simula indisponibilidade temporária por um número específico de segundos. Durante este período, o endpoint `/ready` retornará status code 500.
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kube-news-secrets
+type: Opaque
+stringData:
+  POSTGRES_DB: dbname
+  POSTGRES_USER: dbuser
+  POSTGRES_PASSWORD: dbpassword
+  DB_DATABASE: dbname
+  DB_USERNAME: dbuser
+  DB_PASSWORD: dbpassword
+  DB_HOST: kube-news-db-service
+```
 
-Estes recursos de simulação de falhas são extremamente úteis para testar:
-- Comportamento de probes de liveness e readiness no Kubernetes
-- Políticas de retry e circuit breaker
-- Mecanismos de failover
-- Resiliência geral da sua infraestrutura
+> ⚠️ O valor de `DB_HOST` **deve ser exatamente igual** ao `metadata.name` do `Service` do banco definido no `deployment.yml`.
+> ⚠️ The value of `DB_HOST` **must exactly match** the `Service` name of the database defined in `deployment.yml`.
 
-## 🔒 Modelo de Dados
+Estas variáveis são **obrigatórias** para que a aplicação e o banco funcionem corretamente.
+These variables are **required** by both the application and the database.
 
-O projeto utiliza um único modelo `Post` com os seguintes campos:
-
-| Campo | Tipo | Descrição |
-|-------|------|-----------|
-| title | String | Título da notícia (limite: 30 caracteres) |
-| summary | String | Resumo da notícia (limite: 50 caracteres) |
-| content | String | Conteúdo completo (limite: 2000 caracteres) |
-| publishDate | Date | Data de publicação |
-
-
+> 🔐 Em produção, recomenda-se o uso de ferramentas como Sealed Secrets ou External Secrets Operator.
+> 🔐 In production, it is recommended to use tools such as Sealed Secrets or External Secrets Operator.
